@@ -1,1 +1,5 @@
 allow hal_power_default sysfs:file { write open };
+
+allow hal_power_default perfd:unix_stream_socket connectto;
+allow hal_power_default perfd_data_file:dir search;
+allow hal_power_default perfd_data_file:sock_file write;

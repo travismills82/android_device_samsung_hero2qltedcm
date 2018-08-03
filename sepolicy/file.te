@@ -1,6 +1,7 @@
 # Data types
 type vfsspi_data_file, file_type, data_file_type;
 type mobicore_data_file, file_type, data_file_type;
+type perfd_data_file, file_type, data_file_type;
 
 # EFS types
 type app_efs_file, file_type;
