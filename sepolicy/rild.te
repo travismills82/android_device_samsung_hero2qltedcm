@@ -1,4 +1,9 @@
-get_prop(rild, diag_prop);
+binder_call(rild, servicemanager);
+binder_call(rild, audioserver_service);
+binder_call(rild, binder_per_mgr_service);
+allow rild binder_per_mgr_service:service_manager find;
+
+set_prop(rild, diag_prop);
 
 # qcril.so needs access to /vendor/radio/qcril_database/qcril.db
 allow rild { vendor_configs_file vendor_file }:file ioctl;

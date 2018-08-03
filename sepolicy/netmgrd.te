@@ -1,1 +1,4 @@
 get_prop(netmgrd, diag_prop);
+allow netmgrd net_data_file:dir r_dir_perms;
+allow netmgrd toolbox_exec:file { execute getattr execute_no_trans read open };
+allow netmgrd netd_socket:sock_file write;

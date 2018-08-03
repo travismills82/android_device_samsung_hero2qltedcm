@@ -22,6 +22,13 @@ allow system_server fuse_device:dir { open read getattr search };
 
 allow system_server install_data_file:file getattr;
 
+allow system_server perfd_data_file:sock_file write;
+allow system_server perfd:unix_stream_socket connectto;
+allow system_server perfd_data_file:dir search;
+
+set_prop(system_server, diag_prop);
+binder_call(system_server, binder_per_mgr_service);
+
 # /vendor/usr/keylayout
 r_dir_file(system_server, idc_file);
 

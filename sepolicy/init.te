@@ -5,5 +5,16 @@ allow init debugfs:file write;
 allow init debugfs:dir mounton;
 allow init system_data_file:file rename;
 
+allow init perfd_data_file:sock_file write;
+allow init self:rawip_socket { create setopt getopt };
+allow init self:netlink_kobject_uevent_socket { create bind setopt read };
+allow init surfaceflinger:process signull;
+allow init perfd_data_file:file { read append };
+allow init self:netlink_route_socket { read };
+allow init diag_device:chr_file { read open write };
+allow init perfd:unix_stream_socket connectto;
+
+get_prop(init, vendor_rild_libpath_prop);
+
 # superuser
 allow init su:process { transition rlimitinh siginh noatsecure };

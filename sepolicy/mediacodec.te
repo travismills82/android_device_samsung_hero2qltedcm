@@ -1,1 +1,6 @@
 r_dir_file(mediacodec, firmware_file);
+
+allow mediacodec perfd_data_file:sock_file write;
+allow mediacodec perfd:unix_stream_socket connectto;
+allow mediacodec system_server:fifo_file { write append };
+allow mediacodec perfd_data_file:dir search;
