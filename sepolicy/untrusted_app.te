@@ -9,5 +9,7 @@ allow untrusted_app mac_perms_file:file getattr;
 dontaudit untrusted_app_all sysfs_zram:dir search;
 dontaudit untrusted_app_all sysfs_zram:file r_file_perms;
 
+allow untrusted_app proc_stat:file read;
+
 get_prop(untrusted_app, camera_prop);
 get_prop(untrusted_app_25, camera_prop);
