@@ -220,7 +220,10 @@
     <bool name="config_dozeAfterScreenOff">true</bool>
     <!-- Screen brightness when dozing. -->
     <integer name="config_screenBrightnessDoze">25</integer>
+    <bool name="config_powerDecoupleAutoSuspendModeFromDisplay">true</bool>
     <bool name="config_powerDecoupleInteractiveModeFromDisplay">true</bool>
+    <bool name="config_enableAutoPowerModes">true</bool>
+    <bool name="config_suspendWhenScreenOffDueToProximity">true</bool>
     <bool name="config_setColorTransformAccelerated">true</bool>
 
     <!-- Operating volatage for bluetooth controller. 0 by default-->
