@@ -4,9 +4,9 @@ allow vold system_data_file:file { open };
 allow vold fuse_device:dir { open read write search add_name create };
 allow vold fuse_device:file { open read write create };
 
+allow vold adsprpcd_file:dir { open read };
 allow vold block_device:blk_file getattr;
 allow vold cache_block_device:blk_file getattr;
 allow vold efs_block_device:blk_file getattr;
-allow vold efs_file:dir rw_dir_perms;
-allow vold efs_file:file create;
+allow vold efs_file:dir { open read };
 allow vold system_block_device:blk_file getattr;
