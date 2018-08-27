@@ -14,6 +14,7 @@
 /data/misc/mcRegistry(/.*)?  u:object_r:mobicore_data_file:s0
 /data/misc/perfd(/.*)?       u:object_r:perfd_data_file:s0
 /data/system/perfd(/.*)?     u:object_r:perfd_data_file:s0
+/data/oemnvitems(/.*)?       u:object_r:vendor_radio_data_file:s0
 
 # EFS files
 /efs/bluetooth(/.*)?         u:object_r:bluetooth_efs_file:s0
