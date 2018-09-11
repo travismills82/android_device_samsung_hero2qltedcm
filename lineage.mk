@@ -36,5 +36,3 @@ PRODUCT_BUILD_PROP_OVERRIDES += \
 
 # Set BUILD_FINGERPRINT variable to be picked up by both system and vendor build.prop
 BUILD_FINGERPRINT := "samsung/SC-02H/SC-02H:7.0/NRD90M/SC02HOMU1BRG1:user/release-keys"
-
-PRODUCT_GMS_CLIENTID_BASE := android-samsung
