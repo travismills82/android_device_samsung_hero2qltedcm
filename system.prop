@@ -79,7 +79,7 @@ persist.camera.llc=1
 persist.camera.llnoise=1
 
 # CNE
-persist.cne.feature=0
+persist.vendor.cne.feature=0
 persist.dpm.feature=1
 
 # Dalvik
