@@ -99,9 +99,6 @@ TARGET_USES_QCOM_MM_AUDIO := true
 USE_CUSTOM_AUDIO_POLICY := 1
 USE_XML_AUDIO_POLICY_CONF := 1
 
-# Bionic
-TARGET_LD_SHIM_LIBS := /system/vendor/lib/libmmcamera_ppeiscore.so|libshims_camera.so:/system/vendor/bin/mm-qcamera-daemon|libshims_qcamera-daemon.so
-
 # Bluetooth
 TARGET_QCOM_BLUETOOTH_VARIANT := caf-msm8996
 

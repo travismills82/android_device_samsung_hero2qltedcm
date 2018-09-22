@@ -154,8 +154,6 @@ PRODUCT_PACKAGES += \
     libmmcamera_interface \
     libmmjpeg_interface \
     libqomx_core \
-    libshims_camera \
-    libshims_qcamera-daemon \
     mm-qcamera-app \
     Snap
 
