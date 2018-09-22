@@ -7,7 +7,7 @@
 on init
 
 on fs
-# For Absolute Persistence Partition
+    # For Absolute Persistence Partition
     mkdir /persdata 0755 system system
     mkdir /persdata/absolute 0750 system system
 
@@ -20,58 +20,58 @@ on fs
     chmod 0750 /persdata/absolute
 
 on boot
-# permission for MUIC(waterproof)
+    # permission for MUIC(waterproof)
     chown system radio /sys/class/sec/switch/uart_en
 	
-# permission for touchkey grip
+    # permission for touchkey grip
     chown system radio /sys/class/sec/sec_touchkey/sar_enable
     chown system radio /sys/class/sec/sec_touchkey/sw_reset
 
-# op mode for charger
+    # op mode for charger
     chmod 0664 /sys/class/power_supply/sm5705-charger/charger_op_mode
     chown system radio /sys/class/power_supply/sm5705-charger/charger_op_mode
 
-# Permissions for Charging
+    # Permissions for Charging
     chown sdcard_rw sdcard_rw /sys/class/power_supply/battery/store_mode
 
 # Create carrier folder for HiddenMenu
 on post-fs
     mkdir /efs/carrier 0755 system system
 
-# bluetooth
+    # bluetooth
     chown bluetooth net_bt /dev/ttyHS0
     chmod 0660 /dev/ttyHS0
 	
-# SSWAP
+    # SSWAP
     write /proc/sys/vm/swappiness 130
 
-# MST HW Support
+    # MST HW Support
     setprop ro.mst.support 1
 
-# Permissions for System LSI NFC
-# NFC : Permissions for NFC
+    # Permissions for System LSI NFC
+    # NFC : Permissions for NFC
     chmod 0660 /dev/sec-nfc
-# NFC : change owner
+    # NFC : change owner
     chown nfc nfc /dev/sec-nfc
 
-# Permissions for S.LSI ESE
+    # Permissions for S.LSI ESE
     chmod 0660 /dev/p3
     chown system system /dev/p3
 
-# Permissions for NXP NFC
-# NFC : Permissions for NFC
+    # Permissions for NXP NFC
+    # NFC : Permissions for NFC
     chmod 0660 /dev/pn548
-# NFC : change owner
+    # NFC : change owner
     chown nfc nfc /dev/pn548
 
-# Permissions for NXP ESE
+    # Permissions for NXP ESE
     chmod 0660 /dev/p61
     chown system system /dev/p61
 
-# Fingerprint
+    # Fingerprint
     mkdir /dev/validity 0770 system system
 
-# Fingerprint_sensor
+    # Fingerprint_sensor
     chmod 0660 /dev/vfsspi
     chmod 0660 /dev/esfp0
     chown system system /dev/vfsspi
@@ -82,7 +82,7 @@ on post-fs
     chown system radio /sys/class/fingerprint/fingerprint/adm
     chown system radio /sys/class/fingerprint/fingerprint/bfs_values
 
-# DBMDx
+    # DBMDx
     chmod 0660 /dev/dbmdx-1
     chown system audio /dev/dbmdx-1
 
@@ -99,7 +99,7 @@ service fingerprintd /system/vendor/bin/fingerprintd
     group system
 
 on post-fs-data
-# Access permission for audio calibration
+    # Access permission for audio calibration
     chown system audio /sys/class/dsm/max98506/dsm_log
     chown system audio /sys/class/dsm/maxdsm_cal/max
     chown system audio /sys/class/dsm/maxdsm_cal/min
@@ -113,15 +113,15 @@ on post-fs-data
     chmod 0660 /efs/maxim/temp_cal
     chmod 0660 /efs/maxim/rdc_cal
 
-# dbmdx permission
+    # dbmdx permission
     mkdir /data/firmware 0770 audioserver system
     chown audioserver system /data/firmware
 
-# FM Radio
+    # FM Radio
     chown system audio /dev/radio0
     chmod 0660 /dev/radio0
 
-# permissions for bluetooth.
+    # permissions for bluetooth.
     setprop ro.bt.bdaddr_path "/efs/bluetooth/bt_addr"
     chown bluetooth bluetooth ro.bt.bdaddr_path
     chown radio bluetooth /efs/bluetooth/bt_addr
@@ -130,7 +130,7 @@ on post-fs-data
     chown bluetooth net_bt /sys/class/rfkill/rfkill0/state
     chown bluetooth net_bt /sys/class/rfkill/rfkill0/type
 
-# sem_daemon permission
+    # sem_daemon permission
     chown system system /efs/sec_efs/ssp_data
     chmod 0644 /efs/sec_efs/ssp_data
 

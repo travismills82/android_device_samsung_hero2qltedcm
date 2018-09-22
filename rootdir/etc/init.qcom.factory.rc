@@ -60,13 +60,13 @@ on mmi
     # A/B update verifier that marks a successful boot.
     exec - root cache -- /system/bin/update_verifier nonencrypted
 
-    #mkdir for factory data files.
+    # mkdir for factory data files.
     mkdir /persist/FTM_AP 0750 root root
 
-    #set property for sys.usb.config
+    # set property for sys.usb.config
     setprop sys.usb.config diag,adb
 
-    #Start the following services needed for fftm
+    # Start the following services needed for fftm
     start servicemanager
     start surfaceflinger
     start qcom-usb-sh

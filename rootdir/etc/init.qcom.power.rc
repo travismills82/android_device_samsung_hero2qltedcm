@@ -1,19 +1,19 @@
 on init
-# Disable UFS powersaving
+    # Disable UFS powersaving
     write /sys/devices/soc/${ro.boot.bootdevice}/clkscale_enable 0
     write /sys/devices/soc/${ro.boot.bootdevice}/clkgate_enable 0
     write /sys/devices/soc/${ro.boot.bootdevice}/${ro.boot.bootdevice}:ufs_variant/pm_qos_enable 0
     write /sys/module/lpm_levels/parameters/sleep_disabled Y
 
 on boot
-# Update foreground and background cpusets
+    # Update foreground and background cpusets
     write /dev/cpuset/foreground/cpus 0-3
     write /dev/cpuset/background/cpus 0-3
     write /dev/cpuset/system-background/cpus 0-3
     write /dev/cpuset/top-app/cpus 0-3
 
-# Add a cpuset for the camera daemon
-# we want all cores for camera
+    # Add a cpuset for the camera daemon
+    # we want all cores for camera
     mkdir /dev/cpuset/camera-daemon
     write /dev/cpuset/camera-daemon/cpus 0-3
     write /dev/cpuset/camera-daemon/mems 0
@@ -21,28 +21,28 @@ on boot
     chown system system /dev/cpuset/camera-daemon/tasks
     chmod 0664 /dev/cpuset/camera-daemon/tasks
 
-# Enable sched boost
+    # Enable sched boost
     write /proc/sys/kernel/sched_boost 1
 
 on enable-low-power
-# disable thermal & BCL core_control to update interactive gov settings
+    # disable thermal & BCL core_control to update interactive gov settings
     write /sys/module/msm_thermal/core_control/enabled 0
     write /sys/devices/soc/soc:qcom,bcl/mode "disable"
     write /sys/devices/soc/soc:qcom,bcl/hotplug_mask 0
     write /sys/devices/soc/soc:qcom,bcl/hotplug_soc_mask 0
     write /sys/devices/soc/soc:qcom,bcl/mode "enable"
 
-# re-enable thermal & BCL core_control now
+    # re-enable thermal & BCL core_control now
     write /sys/module/msm_thermal/core_control/enabled 1
     write /sys/devices/soc/soc:qcom,bcl/mode "disable"
     write /sys/devices/soc/soc:qcom,bcl/hotplug_mask 12
     write /sys/devices/soc/soc:qcom,bcl/hotplug_soc_mask 15
     write /sys/devices/soc/soc:qcom,bcl/mode "enable"
 
-# Set sync wakee policy tunable
+    # Set sync wakee policy tunable
     write /proc/sys/kernel/sched_prefer_sync_wakee_to_waker 1
 
-# Configure governor settings for little cluster
+    # Configure governor settings for little cluster
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor "interactive"
     write /sys/devices/system/cpu/cpu0/cpufreq/interactive/use_sched_load 1
     write /sys/devices/system/cpu/cpu0/cpufreq/interactive/use_migration_notif 1
@@ -58,10 +58,10 @@ on enable-low-power
     write /sys/devices/system/cpu/cpu0/cpufreq/interactive/ignore_hispeed_on_notif 0
     write /sys/devices/system/cpu/cpu0/cpufreq/interactive/enable_prediction 1
 
-# Online CPU2
+    # Online CPU2
     write /sys/devices/system/cpu/cpu2/online 1
 
-# Configure governor settings for big cluster
+    # Configure governor settings for big cluster
     write /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor "interactive"
     write /sys/devices/system/cpu/cpu2/cpufreq/interactive/use_sched_load 1
     write /sys/devices/system/cpu/cpu2/cpufreq/interactive/use_migration_notif 1
@@ -77,14 +77,14 @@ on enable-low-power
     write /sys/devices/system/cpu/cpu2/cpufreq/interactive/ignore_hispeed_on_notif 0
     write /sys/devices/system/cpu/cpu2/cpufreq/interactive/enable_prediction 1
 
-# Re-enable thermal hotplug
+    # Re-enable thermal hotplug
     write /sys/module/msm_thermal/core_control/enabled 1
 
-# Input boost configuration
+    # Input boost configuration
     write /sys/module/cpu_boost/parameters/input_boost_freq "0:1324800 2:1324800"
     write /sys/module/cpu_boost/parameters/input_boost_ms 40
 
-# Setting b.L scheduler parameters
+    # Setting b.L scheduler parameters
     write /proc/sys/kernel/sched_boost 0
     write /proc/sys/kernel/sched_upmigrate 95
     write /proc/sys/kernel/sched_downmigrate 90
@@ -93,7 +93,7 @@ on enable-low-power
     write /proc/sys/kernel/sched_spill_nr_run 3
     write /proc/sys/kernel/sched_init_task_load 100
 
-# enable bus dvcs
+    # enable bus dvcs
     write /sys/class/devfreq/soc:qcom,cpubw/governor "bw_hwmon"
     write /sys/class/devfreq/soc:qcom,cpubw/polling_interval 50
     write /sys/class/devfreq/soc:qcom,cpubw/min_freq 1525
@@ -109,36 +109,36 @@ on enable-low-power
     write /sys/class/devfreq/soc:qcom,cpubw/bw_hwmon/up_scale 250
     write /sys/class/devfreq/soc:qcom,cpubw/bw_hwmon/idle_mbps 1600
 
-# Enable UFS powersaving
+    # Enable UFS powersaving
     write /sys/devices/soc/${ro.boot.bootdevice}/clkscale_enable 1
     write /sys/devices/soc/${ro.boot.bootdevice}/clkgate_enable 1
     write /sys/devices/soc/${ro.boot.bootdevice}/${ro.boot.bootdevice}:ufs_variant/pm_qos_enable 1
 
-# Enable all low power modes
+    # Enable all low power modes
     write /sys/module/lpm_levels/parameters/sleep_disabled N
 
-# Adaptive LMK
+    # Adaptive LMK
     write /sys/module/lowmemorykiller/parameters/enable_adaptive_lmk 1
     write /sys/module/lowmemorykiller/parameters/vmpressure_file_min 81250
 
-# Set perfd properties
+    # Set perfd properties
     setprop sys.post_boot.parsed 1
 
     setprop sys.io.scheduler "bfq"
-# update cpusets now that boot is complete and we want better load balancing
+    # update cpusets now that boot is complete and we want better load balancing
     write /dev/cpuset/top-app/cpus 0-3
     write /dev/cpuset/foreground/boost/cpus 0-2
     write /dev/cpuset/foreground/cpus 0-2
     write /dev/cpuset/background/cpus 0
     write /dev/cpuset/system-background/cpus 0-2
 
-# Bring up all cores online
+    # Bring up all cores online
     write /sys/devices/system/cpu/cpu0/online 1
     write /sys/devices/system/cpu/cpu1/online 1
     write /sys/devices/system/cpu/cpu2/online 1
     write /sys/devices/system/cpu/cpu3/online 1
 
-# RPS
+    # RPS
     write /sys/class/net/rmnet_ipa0/queues/rx-0/rps_cpus "f0"
 
 on charger
@@ -149,7 +149,7 @@ on charger
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor "powersave"
     wait /dev/block/platform/soc/${ro.boot.bootdevice}
 
-# Enable UFS powersaving
+    # Enable UFS powersaving
     write /sys/devices/soc/${ro.boot.bootdevice}/clkscale_enable 1
     write /sys/devices/soc/${ro.boot.bootdevice}/clkgate_enable 1
     write /sys/devices/soc/${ro.boot.bootdevice}/${ro.boot.bootdevice}:ufs_variant/pm_qos_enable 1
