@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2017 The LineageOS Project
+# Copyright (C) 2017-2018 The LineageOS Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -21,9 +21,23 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 # Inherit from hero2qltedcm device
 $(call inherit-product, device/samsung/hero2qltedcm/device.mk)
 
-# Device identifier. This must come after all inclusions
-PRODUCT_NAME := full_hero2qltedcm
+# Inherit some common Lineage stuff.
+$(call inherit-product, vendor/lineage/config/common_full_phone.mk)
+
+# Device identifier. This must come after all inclusions.
+PRODUCT_NAME := lineage_hero2qltedcm
 PRODUCT_DEVICE := hero2qltedcm
 PRODUCT_BRAND := samsung
 PRODUCT_MODEL := SC-02H
 PRODUCT_MANUFACTURER := samsung
+
+PRODUCT_BUILD_PROP_OVERRIDES += \
+    TARGET_DEVICE="SC-02H" \
+    PRODUCT_NAME="SC-02H" \
+    PRIVATE_BUILD_DESC="hero2qltedcm-user 7.0 NRD90M SC02HOMU1BRG1 release-keys" \
+    BUILD_DISPLAY_ID="$(BUILD_ID).SC02HOMU1BRG1" \
+    BUILD_NUMBER="SC02HOMU1BRG1" \
+    TARGET_BUILD_FLAVOR="hero2qltedcm-$(TARGET_BUILD_VARIANT)"
+
+# Set BUILD_FINGERPRINT variable to be picked up by both system and vendor build.prop
+BUILD_FINGERPRINT := "samsung/SC-02H/SC-02H:7.0/NRD90M/SC02HOMU1BRG1:user/release-keys"
