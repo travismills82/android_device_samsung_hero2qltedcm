@@ -203,7 +203,7 @@ TARGET_PLATFORM_DEVICE_BASE := /devices/soc/
 TARGET_PROVIDES_LIBLIGHT := true
 
 # Lineage Hardware
-BOARD_HARDWARE_CLASS += $(VENDOR_PATH)/lineagehw
+JAVA_SOURCE_OVERLAYS := org.lineageos.hardware|$(VENDOR_PATH)/lineagehw|**/*.java
 
 # Media
 TARGET_QCOM_MEDIA_VARIANT := caf-msm8996
