@@ -1,7 +1,5 @@
 binder_call(rild, servicemanager);
 binder_call(rild, audioserver_service);
-binder_call(rild, binder_per_mgr_service);
-allow rild binder_per_mgr_service:service_manager find;
 
 set_prop(rild, diag_prop);
 

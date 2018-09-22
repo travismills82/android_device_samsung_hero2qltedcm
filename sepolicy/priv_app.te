@@ -6,7 +6,6 @@ get_prop(priv_app, diag_prop);
 get_prop(priv_app, camera_prop);
 get_prop(priv_app, wifi_prop);
 get_prop(priv_app, net_dns_prop);
-get_prop(priv_app, qemu_hw_mainkeys_prop);
 
 allow priv_app device:dir { open read };
 allow priv_app block_device:dir { search };

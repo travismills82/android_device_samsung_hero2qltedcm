@@ -3,4 +3,4 @@ allow location system_data_file:sock_file { create setattr unlink };
 
 allow location location_data_file:sock_file unlink;
 
-allow location wcnss_prop:file { read getattr open };
+get_prop(location, diag_prop);

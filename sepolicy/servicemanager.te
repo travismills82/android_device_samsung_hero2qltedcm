@@ -1,4 +1,5 @@
-allow servicemanager { init per_mgr rild qseeproxy }:dir search;
-allow servicemanager { per_mgr qseeproxy }:process getattr;
-allow servicemanager { per_mgr rild qseeproxy }:file { read open };
+allow servicemanager hal_fingerprint_default:process { getattr };
+allow servicemanager hal_fingerprint_default:dir { search };
+allow servicemanager hal_fingerprint_default:file { r_file_perms };
+
 allow servicemanager rild:process getattr;
