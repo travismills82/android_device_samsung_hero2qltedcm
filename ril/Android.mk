@@ -14,4 +14,16 @@
 # limitations under the License.
 #
 
-include $(call first-makefiles-under,$(call my-dir))
+RIL_PATH := $(call my-dir)
+
+ifeq ($(BOARD_VENDOR),samsung)
+
+# libril
+include $(RIL_PATH)/libril/Android.mk
+
+# ril client
+SECRIL_CLIENT_DIRS := libsecril-client libsecril-client-sap
+include $(foreach client_dirs,$(SECRIL_CLIENT_DIRS),$(RIL_PATH)/$(client_dirs)/Android.mk)
+
+endif
+

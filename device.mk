@@ -314,6 +314,8 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libprotobuf-cpp-full \
     librmnetctl \
+    libsecril-client \
+    libsecril-client-sap \
     libxml2
 
 # Seccomp policy
