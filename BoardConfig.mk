@@ -99,6 +99,10 @@ TARGET_USES_QCOM_MM_AUDIO := true
 USE_CUSTOM_AUDIO_POLICY := 1
 USE_XML_AUDIO_POLICY_CONF := 1
 
+# Bionic
+TARGET_PROCESS_SDK_VERSION_OVERRIDE := \
+    /system/vendor/bin/mm-qcamera-daemon=23
+
 # Bluetooth
 TARGET_QCOM_BLUETOOTH_VARIANT := caf-msm8996
 
