@@ -355,7 +355,7 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     com.android.future.usb.accessory
 
-# VNDK-SP:
+# VNDK
 PRODUCT_PACKAGES += \
     vndk-sp
 
