@@ -243,7 +243,7 @@ TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
 
 ifeq ($(WITH_TWRP),true)
-TARGET_RECOVERY_FSTAB := $(VENDOR_PATH)/rootdir/etc/twrp.fstab
+TARGET_RECOVERY_FSTAB := $(VENDOR_PATH)/rootdir/recovery/twrp.fstab
 TW_THEME := portrait_hdpi
 BOARD_HAS_NO_REAL_SDCARD := true
 TARGET_RECOVERY_QCOM_RTC_FIX := true
@@ -260,7 +260,7 @@ TW_NO_EXFAT_FUSE := true
 TW_NO_LEGACY_PROPS := true
 TW_NO_REBOOT_BOOTLOADER := true
 else
-TARGET_RECOVERY_FSTAB := $(VENDOR_PATH)/rootdir/etc/fstab.qcom
+TARGET_RECOVERY_FSTAB := $(VENDOR_PATH)/rootdir/recovery/fstab.qcom
 endif
 
 # Releasetools

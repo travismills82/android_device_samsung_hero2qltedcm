@@ -27,6 +27,15 @@ DEVICE_PACKAGE_OVERLAYS += \
     $(LOCAL_PATH)/overlay \
     $(LOCAL_PATH)/overlay-lineage
 
+# Init
+PRODUCT_COPY_FILES += \
+    $(call find-copy-subdir-files,*,${LOCAL_PATH}/prebuilt/vendor,$(TARGET_COPY_OUT_VENDOR))
+
+ifeq ($(WITH_TWRP),true)
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/rootdir/recovery/twrp.fstab:recovery/root/etc/recovery.fstab
+endif
+
 PRODUCT_ENFORCE_RRO_TARGETS := \
     framework-res
 
@@ -289,19 +298,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/privapp-permissions-oem.xml:system/etc/permissions/privapp-permissions-oem.xml \
     $(LOCAL_PATH)/configs/qti_whitelist.xml:system/etc/sysconfig/qti_whitelist.xml
-
-# Ramdisk
-PRODUCT_PACKAGES += \
-    fstab.qcom \
-    init.qcom.power.rc \
-    init.qcom.rc \
-    init.target.rc \
-    ueventd.qcom.rc
-
-ifeq ($(WITH_TWRP),true)
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/rootdir/etc/twrp.fstab:recovery/root/etc/recovery.fstab
-endif
 
 # RCS
 PRODUCT_PACKAGES += \
