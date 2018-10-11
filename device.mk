@@ -189,7 +189,8 @@ PRODUCT_PACKAGES += \
     libgps.utils \
     libloc_core \
     libloc_pla \
-    liblocation_api
+    liblocation_api \
+    libsensorndkbridge
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/gps/etc/flp.conf:$(TARGET_COPY_OUT_VENDOR)/etc/flp.conf \
