@@ -168,7 +168,7 @@ PRODUCT_PACKAGES += \
     libmmjpeg_interface \
     libqomx_core \
     mm-qcamera-app \
-    Snap
+    Camera2
 
 # Display/Graphics
 PRODUCT_PACKAGES += \
