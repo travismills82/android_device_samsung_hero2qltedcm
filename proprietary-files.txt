@@ -611,6 +611,10 @@ vendor/lib64/libimscamera_jni.so
 vendor/lib64/libimsmedia_jni.so
 vendor/lib64/libvoice-svc.so
 
+# IPv6 tethering
+bin/ebtables
+etc/ethertypes
+
 # Keystore
 lib/vendor.samsung.security.skeymaster@3.0.so
 lib64/vendor.samsung.security.skeymaster@3.0.so
@@ -811,6 +815,12 @@ vendor/lib64/libqmi_csi.so
 vendor/lib64/libqmi_encdec.so
 vendor/lib64/libqmiservices.so
 vendor/lib64/libsmemlog.so
+
+# RCS
+etc/permissions/rcs_service_aidl.xml
+etc/permissions/rcs_service_api.xml
+framework/rcs_service_aidl.jar
+framework/rcs_service_api.jar
 
 # RIL
 lib/libsecnativefeature.so
