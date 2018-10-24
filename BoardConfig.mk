@@ -101,7 +101,8 @@ USE_XML_AUDIO_POLICY_CONF := 1
 
 # Bionic
 TARGET_PROCESS_SDK_VERSION_OVERRIDE := \
-    /system/vendor/bin/mm-qcamera-daemon=23
+    /system/vendor/bin/mm-qcamera-daemon=23 \
+    /system/vendor/bin/hw/rild=27
 
 # Bluetooth
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(VENDOR_PATH)/bluetooth
