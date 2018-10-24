@@ -101,6 +101,7 @@ USE_XML_AUDIO_POLICY_CONF := 1
 
 # Bionic
 TARGET_PROCESS_SDK_VERSION_OVERRIDE := \
+    /system/bin/mediaserver=23 \
     /system/vendor/bin/mm-qcamera-daemon=23 \
     /system/vendor/bin/hw/rild=27
 
