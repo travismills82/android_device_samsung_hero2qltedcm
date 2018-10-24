@@ -125,8 +125,8 @@ PRODUCT_PACKAGES += \
 
 # Sensors
 PRODUCT_PACKAGES += \
-    android.hardware.sensors@1.0-impl \
-    android.hardware.sensors@1.0-service
+    android.hardware.sensors@1.0-impl.samsung8996 \
+    android.hardware.sensors@1.0-service.samsung8996
 
 # Thermal
 PRODUCT_PACKAGES += \
