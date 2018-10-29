@@ -37,57 +37,66 @@ on early-init
 on fs
     wait /dev/block/platform/soc/${ro.boot.bootdevice}
     symlink /dev/block/platform/soc/${ro.boot.bootdevice} /dev/block/bootdevice
+
     mount_all /vendor/etc/fstab.qcom
-    swapon_all /vendor/etc/fstab.qcom
 
     # Keeping following partitions outside fstab file. As user may not have
     # these partition flashed on the device. Failure to mount any partition in fstab file
     # results in failure to launch late-start class.
 
-    mkdir /persist/data 0700 system system
-    mkdir /persist/bms 0700 root system
+    # Restorecon
     restorecon_recursive /persist
 
-    wait /dev/block/bootdevice/by-name/efs
-    mount ext4 /dev/block/bootdevice/by-name/efs /efs nosuid nodev noatime noauto_da_alloc,discard,journal_async_commit,errors=panic
-    chown radio system /efs
-    chmod 0771 /efs
-    restorecon -R /efs
+    # Start HW service manager early
+    start hwservicemanager
+
+    # qseecomd needs /dev/block/bootdevice
+    # vold needs keymaster that needs qseecomd
+    start qseecomd
 
 on init
     write /sys/module/qpnp_rtc/parameters/poweron_alarm 1
-	write /sys/power/cpufreq_max_limit 1920000
+    write /sys/power/cpufreq_max_limit 1920000
 
 on post-fs-data
+    # msm specific files that need to be created on /data
     mkdir /data/tombstones 0771 system system
     mkdir /tombstones/modem 0771 system system
     mkdir /tombstones/lpass 0771 system system
     mkdir /tombstones/wcnss 0771 system system
     mkdir /tombstones/dsps 0771 system system
+    mkdir /persist/drm 0770 system system
+    mkdir /persist/bluetooth 0770 bluetooth bluetooth
+    mkdir /persist/misc 0770 system system
+    mkdir /persist/alarm 0770 system system
+    mkdir /persist/time 0770 system system
+    mkdir /persist/secnvm 0770 system system
+    mkdir /mnt/vendor/persist/secnvm 0770 system system
     mkdir /persist/data/sfs 0700 system system
     mkdir /persist/data/tz 0700 system system
+    mkdir /persist/qc_senseid 0700 system system
     mkdir /persist/qti_fp 0700 system system
     mkdir /data/misc/dts 0770 media audio
     mkdir /data/misc/seemp 0700 system system
     mkdir /data/usf 0700 system system
     mkdir /data/misc/tloc/ 0700 system drmrpc
-    mkdir /data/misc/qvr 0770 system system
+    mkdir /data/misc/qvr 0660 system system
     mkdir /data/misc/audio_pp 0771 media audio
 
-   # Add a cpuset for the camera daemon
-   # We want all cores for camera
-   mkdir /dev/cpuset/camera-daemon
-   write /dev/cpuset/camera-daemon/cpus 0-3
-   write /dev/cpuset/camera-daemon/mems 0
-   chown cameraserver cameraserver /dev/cpuset/camera-daemon
-   chown cameraserver cameraserver /dev/cpuset/camera-daemon/tasks
-   chmod 0660 /dev/cpuset/camera-daemon/tasks
+    # Add a cpuset for the camera daemon
+    # We want all cores for camera
+    mkdir /dev/cpuset/camera-daemon
+    write /dev/cpuset/camera-daemon/cpus 0-3
+    write /dev/cpuset/camera-daemon/mems 0
+    chown cameraserver cameraserver /dev/cpuset/camera-daemon
+    chown cameraserver cameraserver /dev/cpuset/camera-daemon/tasks
+    chmod 0660 /dev/cpuset/camera-daemon/tasks
 
-# Create folder for mm-qcamera-daemon
-mkdir /data/vendor/camera 0770 camera camera
+    # Create folder for mm-qcamera-daemon
+    mkdir /data/vendor/camera 0770 camera camera
 
-# Create oemnvitems for RIL
-mkdir /data/oemnvitems 0771 radio radio
+    # Create oemnvitems for RIL
+    mkdir /data/oemnvitems 0771 radio radio
 
 on property:init.svc.bootanim=running
     write /sys/class/leds/wled/brightness 4095
@@ -122,10 +131,10 @@ on boot
     write /dev/cpuctl/bg_abnormal/cpu.cfs_quota_us 10000
 
     mkdir /dev/cpuset/cached
-    write /dev/cpuset/cached/cpus 0-2
+    write /dev/cpuset/cached/cpus 1-3
     copy /dev/cpuset/mems /dev/cpuset/cached/mems
     mkdir /dev/cpuset/abnormal
-    write /dev/cpuset/abnormal/cpus 0-2
+    write /dev/cpuset/abnormal/cpus 1-3
     copy /dev/cpuset/mems /dev/cpuset/abnormal/mems
 
     # change permissions for BarTender's cpusets we'll touch at runtime
@@ -151,13 +160,13 @@ on boot
     chmod 664 /dev/cpuset/background/cpus
     chmod 664 /dev/cpuset/system-background/cpus
     chmod 664 /dev/cpuset/surfaceflinger/cpus
-    write /dev/cpuset/top-app/cpus 0-7
+    write /dev/cpuset/top-app/cpus 0-3
     write /dev/cpuset/top-app/mems 0
-    write /dev/cpuset/foreground/cpus 0-2,4-7
+    write /dev/cpuset/foreground/cpus 0-3
     write /dev/cpuset/foreground/mems 0
-    write /dev/cpuset/background/cpus 0-1
+    write /dev/cpuset/background/cpus 1-3
     write /dev/cpuset/background/mems 0
-    write /dev/cpuset/system-background/cpus 0-2
+    write /dev/cpuset/system-background/cpus 0-1
     write /dev/cpuset/system-background/mems 0
     write /dev/cpuset/surfaceflinger/cpus 0-2,4-7
     write /dev/cpuset/surfaceflinger/mems 0
@@ -170,11 +179,16 @@ on boot
     write /proc/sys/kernel/sched_boost 1
     write /sys/devices/soc/75ba000.i2c/i2c-12/12-0020/input/input0/update_fw 1
 
+    # Touchscreen
+    chown system system /sys/devices/soc/75ba000.i2c/i2c-12/12-0020/input/input2/0dbutton
+    chmod 0666 /sys/devices/soc/75ba000.i2c/i2c-12/12-0020/input/input2/0dbutton
+
 # start camera server as daemon
 service qcamerasvr /vendor/bin/mm-qcamera-daemon
     class late_start
     user camera
     group camera system inet input graphics
+    writepid /dev/cpuset/system-background/tasks
 
 # fingerprint service
 service fingerprintd /vendor/bin/fingerprintd
@@ -200,16 +214,17 @@ service qvrd /vendor/bin/qvrservice
 
 # Start up peripheral manager
 service per_mgr /vendor/bin/pm-service
-    class core
+    class late_start
     user system
     group system net_raw
-    ioprio rt 4
+    writepid /dev/cpuset/system-background/tasks
 
 service per_proxy /vendor/bin/pm-proxy
-    class core
+    class late_start
     user system
     group system
     disabled
+    writepid /dev/cpuset/system-background/tasks
 
 on property:init.svc.per_mgr=running
     start per_proxy
@@ -218,13 +233,13 @@ on property:sys.shutdown.requested=*
     stop per_proxy
 
 service mdm_launcher /system/bin/sh init.mdm.sh
-     class core
-     oneshot
+    class core
+    oneshot
 
 service mdm_helper /system/bin/mdm_helper
-     class core
-     group root system
-     disabled
+    class core
+    group root system
+    disabled
 ## Allow usb charging to be disabled peristently
 #on property:persist.usb.chgdisabled=1
 #    write /sys/class/power_supply/battery/charging_enabled 0
@@ -233,9 +248,9 @@ service mdm_helper /system/bin/mdm_helper
 #    write /sys/class/power_supply/battery/charging_enabled 1
 #
 #service qrngd /system/bin/qrngd -f
-#   class main
-#   user root
-#   group root
+#    class main
+#    user root
+#    group root
 #
 #service qrngp /system/bin/qrngp
 #    class main
@@ -248,48 +263,55 @@ service mdm_helper /system/bin/mdm_helper
 #    start qrngp
 
 service qseecomd /vendor/bin/qseecomd
-   class core
-   user root
-   group root
+    class core
+    user root
+    group root
+    writepid /dev/cpuset/system-background/tasks
+
+service perfd /vendor/bin/perfd
+    class main
+    user root
+    group root readproc
+    disabled
+    socket perfd seqpacket 0666 root system
+    writepid /dev/cpuset/system-background/tasks
 
 service gamed /vendor/bin/gamed
-   class main
-   user system
-   group system
-   disabled
-   socket gamed seqpacket 0640 system system
+    class main
+    user system
+    group system
+    disabled
+    socket gamed seqpacket 0640 system system
 
 service seempd /vendor/bin/seempd
-   class late_start
-   user system
-   group system
-   socket seempdw dgram 0666 system system
+    class late_start
+    user system
+    group system
+    socket seempdw dgram 0666 system system
 
 service secotad /vendor/bin/secotad
-   class late_start
-   user system
-   group system
+    class late_start
+    user system
+    group system
 
 #service mpdecision /vendor/bin/mpdecision --avg_comp
-#   user root
-#   disabled
+#    user root
+#    disabled
 #
 #service qosmgrd /system/bin/qosmgr /system/etc/qosmgr_rules.xml
-#   user system
-#   group system
-#   disabled
+#    user system
+#    group system
+#    disabled
 #
-service thermal-engine /vendor/bin/thermal-engine
-   class main
-   user root
-   socket thermal-send-client stream 0666 system system
-   socket thermal-recv-client stream 0660 system system
-   socket thermal-recv-passive-client stream 0666 system system
-   socket thermal-send-rule stream 0660 system system
-   group root
-   socket thermal-send-client stream 0666 system system
-   socket thermal-recv-client stream 0660 system system
-   socket thermal-recv-passive-client stream 0666 system system
+service thermal-engine /vendor/bin/thermal-engine -c ${sys.qcom.thermalcfg:-/vendor/etc/thermal-engine.conf}
+    class main
+    user root
+    socket thermal-send-client stream 0666 system system
+    socket thermal-recv-client stream 0660 system system
+    socket thermal-recv-passive-client stream 0666 system system
+    socket thermal-send-rule stream 0660 system system
+    group root
+    writepid /dev/cpuset/system-background/tasks
 
 #service security-check1 /sbin/security_boot_check system
 #    class core
@@ -300,20 +322,15 @@ service thermal-engine /vendor/bin/thermal-engine
 #    oneshot
 #
 service time_daemon /vendor/bin/time_daemon
-   class late_start
-   user root
-   group root
+    class late_start
+    user root
+    group root
+    writepid /dev/cpuset/system-background/tasks
 
 service adsprpcd /vendor/bin/adsprpcd
-   class main
-   user media
-   group media
-
-service audiod /vendor/bin/audiod
-   class late_start
-   user system
-   group system
-
+    class main
+    user media
+    group media
 
 service usf_tester /vendor/bin/usf_tester
     user system
@@ -383,6 +400,7 @@ service imsqmidaemon /vendor/bin/imsqmidaemon
     user system
     socket ims_qmid stream 0660 system radio
     group radio log diag
+    writepid /dev/cpuset/system-background/tasks
 
 service imsdatadaemon /vendor/bin/imsdatadaemon
     class main
@@ -390,57 +408,50 @@ service imsdatadaemon /vendor/bin/imsdatadaemon
     socket ims_datad stream 0660 system radio
     group system wifi radio inet log diag
     disabled
+    writepid /dev/cpuset/system-background/tasks
 
 service pd_mapper /vendor/bin/pd-mapper
-     class core
-     disabled
+    class core
+    disabled
 
 on property:persist.sys.pd_enable=1
-     start pd_mapper
-     write /sys/class/service_locator/service_locator_status 1
+    start pd_mapper
+    write /sys/class/service_locator/service_locator_status 1
 
 on property:persist.sys.pd_enable=0
-     write /sys/class/service_locator/service_locator_status 0
+    write /sys/class/service_locator/service_locator_status 0
 
 #
 ## QCA1530 SoC late_start group trigger
 #service gnss-init /vendor/bin/gnss.qca1530.sh init
-#   class late_start
-#   oneshot
+#    class late_start
+#    oneshot
 #
 on property:vendor.ims.QMI_DAEMON_STATUS=1
     start imsdatadaemon
 
 service ims_rtp_daemon /vendor/bin/ims_rtp_daemon
-   class main
-   user system
-   group radio diag inet log
-   disabled
-
-service vendor.imsrcsservice /vendor/bin/imsrcsd
-   class main
-   user system
-   group radio diag inet log
-   disabled
-
-on property:vendor.ims.DATA_DAEMON_STATUS=1
-   start ims_rtp_daemon
-   start vendor.imsrcsservice
-
-service dts_configurator /vendor/bin/dts_configurator
-    class late_start
+    class main
     user system
-    group system media audio
-    oneshot
-
-service dtseagleservice /vendor/bin/dts_eagle_service
-    class late_start
-    user system
-    group audio media
+    group radio diag inet log
     disabled
 
-on property:init.svc.dts_configurator=stopped
-    start dtseagleservice
+service vendor.imsrcsservice /vendor/bin/imsrcsd
+    class main
+    user system
+    group radio diag inet log
+    disabled
+
+on property:vendor.ims.DATA_DAEMON_STATUS=1
+    start ims_rtp_daemon
+    start vendor.imsrcsservice
+
+service ppd /vendor/bin/mm-pp-dpps
+    class late_start
+    user system
+    group system graphics
+    socket pps stream 0660 system system
+    disabled
 
 on property:init.svc.surfaceflinger=stopped
     stop ppd

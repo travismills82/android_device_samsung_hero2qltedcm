@@ -4,17 +4,17 @@
 # This is a common source of Android security bugs.
 #
 
-service ril-daemon /vendor/bin/hw/rild -l ${vendor.sec.rild.libpath}
+service ril-daemon /vendor/bin/hw/rild -l ${rild.libpath}
     class main
     user radio
-    group radio cache inet misc audio log system drmrpc vpn readproc wakelock
+    group radio cache inet misc audio log oem_2901 system drmrpc vpn readproc wakelock oem_5432
     capabilities BLOCK_SUSPEND NET_ADMIN NET_RAW SYS_ADMIN CHOWN DAC_READ_SEARCH
     socket sap_uim_socket1 stream 660 bluetooth bluetooth
 
-service ril-daemon1 /vendor/bin/hw/rild -c 2 -l ${vendor.sec.rild.libpath2}
+service ril-daemon1 /vendor/bin/hw/rild -c 2 -l ${rild.libpath2}
     class main
     user radio
-    group radio cache inet misc audio log system drmrpc vpn readproc wakelock
+    group radio cache inet misc audio log oem_2901 system drmrpc vpn readproc wakelock oem_5432
     capabilities BLOCK_SUSPEND NET_ADMIN NET_RAW SYS_ADMIN CHOWN DAC_READ_SEARCH
     disabled
 

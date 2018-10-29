@@ -1,4 +1,5 @@
-#!/vendor/bin/sh
+#! /vendor/bin/sh
+
 # Copyright (c) 2013-2014, The Linux Foundation. All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -65,12 +66,12 @@ case "$baseband" in
 
     multisim=`getprop persist.radio.multisim.config`
 
-#    if [ "$multisim" = "dsds" ] || [ "$multisim" = "dsda" ]; then
-#        start ril-daemon2
-#    elif [ "$multisim" = "tsts" ]; then
-#        start ril-daemon2
-#        start ril-daemon3
-#    fi
+    if [ "$multisim" = "dsds" ] || [ "$multisim" = "dsda" ]; then
+        start ril-daemon2
+    elif [ "$multisim" = "tsts" ]; then
+        start ril-daemon2
+        start ril-daemon3
+    fi
 
     case "$datamode" in
         "tethered")

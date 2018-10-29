@@ -4,8 +4,6 @@
 # This is a common source of Android security bugs.
 #
 
-on init
-
 on fs
     # For Absolute Persistence Partition
     mkdir /persdata 0755 system system
@@ -87,13 +85,13 @@ on post-fs
     chown system audio /dev/dbmdx-1
 
 # SENSOR FRAMEWORK : starts fingerprintService
-service vcsFPService /system/vendor/bin/vcsFPService
+service vcsFPService /vendor/bin/vcsFPService
     class late_start
     user system
     group system
 
 # FINGERPRINT FRAMEWORK : starts fingerprintd
-service fingerprintd /system/vendor/bin/fingerprintd
+service fingerprintd /vendor/bin/fingerprintd
     class late_start
     user system
     group system
@@ -107,9 +105,9 @@ on post-fs-data
     chown system audio /sys/class/dsm/maxdsm_cal/duration
     chown system audio /sys/class/dsm/maxdsm_cal/temp
     chown system audio /sys/class/dsm/maxdsm_cal/rdc
-    mkdir /efs/maxim 0770 system audio
-    chown system audio /efs/maxim/temp_cal
-    chown system audio /efs/maxim/rdc_cal
+    mkdir /efs/maxim 0770 audioserver audio
+    chown audioserver audio /efs/maxim/temp_cal
+    chown audioserver audio /efs/maxim/rdc_cal
     chmod 0660 /efs/maxim/temp_cal
     chmod 0660 /efs/maxim/rdc_cal
 
@@ -135,7 +133,7 @@ on post-fs-data
     chmod 0644 /efs/sec_efs/ssp_data
 
 # sem_daemon
-service sem_daemon /system/vendor/bin/sem_daemon
+service sem_daemon /vendor/bin/sem_daemon
     class core
     user system
     group system nfc
@@ -157,7 +155,7 @@ service swapon /sbin/sswap -s -f 2048
     oneshot
 
 # ApexServer
-service apexserver /system/vendor/bin/apexserver
+service apexserver /vendor/bin/apexserver
     class main
     user system
     group system graphics drmrpc media media_rw
