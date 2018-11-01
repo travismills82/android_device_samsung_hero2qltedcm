@@ -17,18 +17,11 @@ LOCAL_PATH := $(call my-dir)
 include $(CLEAR_VARS)
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../thermal-engine
+LOCAL_HEADER_LIBRARIES := libcutils_headers libhardware_headers
 LOCAL_MODULE := vr.$(TARGET_BOARD_PLATFORM)
 LOCAL_MODULE_RELATIVE_PATH := hw
 LOCAL_PROPRIETARY_MODULE := true
 LOCAL_SRC_FILES := vr.c
-
-ifeq ($(call is-board-platform-in-list,msm8998), true)
-LOCAL_SRC_FILES += vr-8998.c
-endif
-
-ifeq ($(call is-board-platform-in-list,sdm845), true)
-LOCAL_SRC_FILES += vr-845.c
-endif
 
 LOCAL_SHARED_LIBRARIES := liblog libcutils
 LOCAL_MODULE_TAGS := optional
