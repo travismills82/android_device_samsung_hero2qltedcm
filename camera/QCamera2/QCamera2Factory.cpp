@@ -502,10 +502,6 @@ int QCamera2Factory::openLegacy(
     if (cameraId < 0 || cameraId >= gQCamera2Factory->getNumberOfCameras())
         return -ENODEV;
 
-#ifndef QCAMERA_HAL1_SUPPORT
-    (void)(hw_device);
-#endif
-
     switch(halVersion)
     {
 #ifdef QCAMERA_HAL1_SUPPORT
@@ -619,8 +615,6 @@ bool QCamera2Factory::isDualCamAvailable(int hal3Enabled)
         if (!hal3Enabled) {
 #ifdef QCAMERA_HAL1_SUPPORT
             QCamera2HardwareInterface::getCapabilities(i, &info, &cam_type);
-#else
-            (void)(info);
 #endif
         }
 
