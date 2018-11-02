@@ -10,10 +10,10 @@ media.stagefright.enable-http=true
 media.stagefright.enable-player=true
 media.stagefright.enable-qcp=true
 media.stagefright.enable-scan=true
-mm.enable.qcom_parser=3314291
 mm.enable.smoothstreaming=true
 mmp.enable.3g2=true
 persist.mm.enable.prefetch=true
+vendor.mm.enable.qcom_parser=3314291
 
 # Enable AAC 5.1 output
 media.aac_51_output_enabled=true
@@ -67,12 +67,12 @@ vendor.voice.path.for.pcm.voip=true
 
 # Bluetooth
 bt.max.hfpclient.connections=1
-persist.vendor.bt.enable.splita2dp=false
-qcom.bluetooth.soc=rome
+persist.vendor.btstack.enable.splita2dp=false
 ro.bluetooth.emb_wp_mode=true
 ro.bluetooth.ftm_enabled=true
 ro.bluetooth.wipower=true
 ro.btconfig.dev=/dev/ttyHS0
+vendor.qcom.bluetooth.soc=rome
 
 # Camera
 camera.disable_zsl_mode=1
@@ -95,11 +95,11 @@ persist.data.dpm.enable=true
 persist.data.dropssdp=false
 persist.data.ibfc.enable=true
 persist.data.iwlan.enable=true
-persist.data.mode=concurrent
 persist.data.netmgrd.qos.enable=true
+persist.vendor.data.mode=concurrent
 ro.com.google.clientidbase=android-samsung
 ro.com.google.clientidbase.am=android-docomo-jp
-ro.use_data_netmgrd=true
+ro.vendor.use_data_netmgrd=true
 
 # disable navigation bar
 qemu.hw.mainkeys=1
@@ -115,6 +115,9 @@ persist.qfp=false
 
 # FRP
 ro.frp.pst=/dev/block/bootdevice/by-name/frp
+
+# Game
+vendor.debug.enable.gamed=0
 
 # GPS
 persist.gps.qc_nlp_in_use=1
@@ -177,6 +180,7 @@ ro.control_privapp_permissions=enforce
 
 # Qualcomm
 qcom.hw.aac.encoder=true
+ro.qualcomm.cabl=1
 
 # RIL
 persist.data.qmi.adb_logmask=0
@@ -184,7 +188,6 @@ persist.net.doxlat=true
 persist.oem.dump=0
 persist.radio.add_power_save=1
 persist.radio.aosp_usr_pref_sel=true
-persist.radio.apm_sim_not_pwdn=1
 persist.radio.atfwd.start=true
 persist.radio.csvt.enabled=false
 persist.radio.efssync=true
@@ -196,6 +199,7 @@ persist.radio.setnwkmode=9
 persist.radio.sib16_support=1
 persist.radio.tdscdma_present=1
 persist.rcs.supported=1
+persist.vendor.radio.apm_sim_not_pwdn=1
 persist.vendor.radio.cs_srv_type=1
 persist.vendor.radio.custom_ecc=1
 persist.vendor.radio.data_con_rprt=1
