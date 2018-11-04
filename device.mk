@@ -27,9 +27,12 @@ DEVICE_PACKAGE_OVERLAYS += \
     $(LOCAL_PATH)/overlay \
     $(LOCAL_PATH)/overlay-lineage
 
-# Init
+# Ramdisk
 PRODUCT_COPY_FILES += \
     $(call find-copy-subdir-files,*,${LOCAL_PATH}/prebuilt/vendor,$(TARGET_COPY_OUT_VENDOR))
+
+PRODUCT_PACKAGES += \
+    init.recovery.qcom.rc
 
 ifeq ($(WITH_TWRP),true)
 PRODUCT_COPY_FILES += \
