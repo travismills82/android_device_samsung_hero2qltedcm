@@ -104,6 +104,7 @@ USE_XML_AUDIO_POLICY_CONF := 1
 TARGET_PROCESS_SDK_VERSION_OVERRIDE := \
     /system/bin/mediaserver=23 \
     /system/vendor/bin/mm-qcamera-daemon=23 \
+    /system/vendor/bin/hw/android.hardware.camera.provider@2.4-service=24 \
     /system/vendor/bin/hw/rild=27
 
 # Bluetooth
