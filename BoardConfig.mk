@@ -311,6 +311,9 @@ TARGET_USE_SDCLANG := true
 TARGET_INIT_VENDOR_LIB := libinit_msm8996
 TARGET_RECOVERY_DEVICE_MODULES := libinit_msm8996
 
+# Vendor separation
+TARGET_COPY_OUT_VENDOR := system/vendor
+
 # Vr
 USE_DEVICE_SPECIFIC_VR := true
 
