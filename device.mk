@@ -172,6 +172,7 @@ PRODUCT_PACKAGES += \
 # Display/Graphics
 PRODUCT_PACKAGES += \
     gralloc.msm8996 \
+    hdmi_cec.msm8996 \
     hwcomposer.msm8996 \
     memtrack.msm8996 \
     libdisplayconfig \
@@ -278,6 +279,7 @@ PRODUCT_COPY_FILES += \
 # OMX
 PRODUCT_PACKAGES += \
     libc2dcolorconvert \
+    libhypv_intercept \
     libmm-omxcore \
     libOmxAacEnc \
     libOmxAmrEnc \
@@ -286,7 +288,9 @@ PRODUCT_PACKAGES += \
     libOmxQcelp13Enc \
     libOmxVdec \
     libOmxVenc \
-    libstagefrighthw
+    libOmxVidcCommon \
+    libstagefrighthw \
+    libstagefright_soft_flacdec
 
 # Power
 PRODUCT_PACKAGES += \
