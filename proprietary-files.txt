@@ -423,6 +423,12 @@ vendor/lib/hw/gatekeeper.mdfpp.so
 vendor/lib64/hw/gatekeeper.mdfpp.so
 
 # GPS
+etc/permissions/com.qti.location.sdk.xml
+etc/permissions/com.qualcomm.location.xml
+etc/permissions/izat.xt.srv.xml
+framework/com.qti.location.sdk.jar
+framework/izat.xt.srv.jar
+-priv-app/com.qualcomm.location/com.qualcomm.location.apk
 vendor/bin/hw/vendor.samsung.hardware.gnss@1.0-service
 vendor/bin/loc_launcher
 vendor/bin/lowi-server
@@ -816,8 +822,10 @@ vendor/lib64/libsmemlog.so
 # RCS
 etc/permissions/rcs_service_aidl.xml
 etc/permissions/rcs_service_api.xml
+etc/permissions/rcsopenapi_library.xml
 framework/rcs_service_aidl.jar
 framework/rcs_service_api.jar
+framework/rcsopenapi.jar
 
 # RIL
 lib/libsecnativefeature.so
