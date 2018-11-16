@@ -312,10 +312,6 @@ TARGET_USES_LEGACY_ADB_INTERFACE := true
 # Use Snapdragon LLVM, if available
 TARGET_USE_SDCLANG := true
 
-# Vendor init
-TARGET_INIT_VENDOR_LIB := libinit_msm8996
-TARGET_RECOVERY_DEVICE_MODULES := libinit_msm8996
-
 # Vendor separation
 TARGET_COPY_OUT_VENDOR := system/vendor
 
