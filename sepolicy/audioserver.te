@@ -2,3 +2,7 @@ get_prop(audioserver, diag_prop);
 allow audioserver perfd_data_file:sock_file write;
 allow audioserver perfd:unix_stream_socket connectto;
 allow audioserver sysfs:dir read;
+
+# Allow audioserver to create socket files for audio arbitration
+allow audioserver audio_data_file:sock_file { create setattr unlink };
+allow audioserver audio_data_file:dir remove_name;
