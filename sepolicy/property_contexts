@@ -5,4 +5,6 @@ service.camera.hdmi_preview         u:object_r:camera_prop:s0
 persist.camera.                     u:object_r:camera_prop:s0
 storage.efs_sync.done               u:object_r:rmt_storage_prop:s0
 sys.listeners.registered            u:object_r:vendor_tee_listener_prop:s0
+ro.min_freq_0                       u:object_r:freq_prop:s0
+ro.min_freq_4                       u:object_r:freq_prop:s0
 sys.post_boot.parsed                u:object_r:vendor_mpctl_prop:s0
