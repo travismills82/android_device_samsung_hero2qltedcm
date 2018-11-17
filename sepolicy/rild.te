@@ -13,3 +13,6 @@ allow rild proc_net:file w_file_perms;
 
 allow rild toolbox_exec:file { getattr execute execute_no_trans open read };
 allow rild vendor_toolbox_exec:file execute_no_trans;
+
+dontaudit rild tombstone_data_file:dir search;
+dontaudit rild vendor_file:file ioctl;
