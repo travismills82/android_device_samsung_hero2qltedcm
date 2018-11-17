@@ -426,12 +426,20 @@ vendor/lib64/hw/gatekeeper.mdfpp.so
 etc/permissions/com.qti.location.sdk.xml
 etc/permissions/com.qualcomm.location.xml
 etc/permissions/izat.xt.srv.xml
+etc/permissions/privapp-permissions-com.qualcomm.location.xml
 framework/com.qti.location.sdk.jar
 framework/izat.xt.srv.jar
+lib/liblocationservice_jni.so
+lib/libxt_native.so
+lib/vendor.qti.gnss@1.0.so
+lib64/liblocationservice_jni.so
+lib64/libxt_native.so
+lib64/vendor.qti.gnss@1.0.so
 -priv-app/com.qualcomm.location/com.qualcomm.location.apk
 vendor/bin/hw/vendor.samsung.hardware.gnss@1.0-service
 vendor/bin/loc_launcher
 vendor/bin/lowi-server
+vendor/bin/slim_daemon
 vendor/bin/xtra-daemon
 vendor/bin/xtwifi-client
 vendor/bin/xtwifi-inet-agent
@@ -440,7 +448,7 @@ vendor/etc/xtra_root_cert.pem
 vendor/etc/init/vendor.samsung.hardware.gnss@1.0-service.rc
 vendor/lib/hw/vendor.qti.gnss@1.0-impl.so
 vendor/lib/hw/vendor.samsung.hardware.gnss@1.0-impl.so
-vendor/lib/lib_drplugin_server.so
+vendor/lib/libalarmservice_jni.so
 vendor/lib/libdataitems.so
 vendor/lib/libDRPlugin.so
 vendor/lib/libdrplugin_client.so
@@ -464,7 +472,7 @@ vendor/lib/vendor.qti.gnss@1.0_vendor.so
 vendor/lib/vendor.samsung.hardware.gnss@1.0.so
 vendor/lib64/hw/vendor.qti.gnss@1.0-impl.so
 vendor/lib64/hw/vendor.samsung.hardware.gnss@1.0-impl.so
-vendor/lib64/lib_drplugin_server.so
+vendor/lib64/libalarmservice_jni.so
 vendor/lib64/libdataitems.so
 vendor/lib64/libDRPlugin.so
 vendor/lib64/libdrplugin_client.so
@@ -481,6 +489,8 @@ vendor/lib64/liblocationservice.so
 vendor/lib64/liblocationservice_glue.so
 vendor/lib64/liblowi_client.so
 vendor/lib64/liblowi_wifihal.so
+vendor/lib64/libquipc_os_api.so
+vendor/lib64/libslimclient.so
 vendor/lib64/libulp2.so
 vendor/lib64/libxtadapter.so
 vendor/lib64/libxtwifi_ulp_adaptor.so
