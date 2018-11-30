@@ -41,6 +41,7 @@
 /sys/class/lcd(/.*)?                              u:object_r:sysfs_graphics:s0
 /sys/class/mdnie(/.*)?                            u:object_r:sysfs_mdnie:s0
 /sys/devices/virtual/graphics(/.*)?               u:object_r:sysfs_graphics:s0
+/sys/devices/virtual/input(/.*)?                  u:object_r:sysfs_input:s0
 /sys/devices/virtual/sec/sec_key(/.*)?            u:object_r:sysfs_sec_key:s0
 
 # Binaries
