@@ -37,10 +37,7 @@
 /dev/block/platform/soc/624000.ufshc/by-name/fota           u:object_r:misc_block_device:s0
 
 # sysfs
-/sys/class/mdnie/mdnie/accessibility              u:object_r:sysfs_mdnie:s0
-/sys/class/mdnie/mdnie/mode                       u:object_r:sysfs_mdnie:s0
-/sys/class/mdnie/mdnie/outdoor                    u:object_r:sysfs_mdnie:s0
-/sys/class/mdnie/mdnie/scenario                   u:object_r:sysfs_mdnie:s0
+/sys/class/mdnie(/.*)?                            u:object_r:sysfs_mdnie:s0
 /sys/devices/virtual/sec/sec_key(/.*)?            u:object_r:sysfs_sec_key:s0
 
 # Binaries
