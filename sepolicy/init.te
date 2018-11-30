@@ -14,6 +14,9 @@ allow init self:netlink_route_socket { read };
 allow init diag_device:chr_file { read open write };
 allow init perfd:unix_stream_socket connectto;
 
+allow init sysfs_graphics:file r_file_perms;
+allow init sysfs_graphics:file setattr;
+
 allow init sysfs_mdnie:file setattr;
 
 get_prop(init, vendor_rild_libpath_prop);
