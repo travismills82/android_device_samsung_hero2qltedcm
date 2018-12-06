@@ -1601,6 +1601,9 @@ on property:persist.sys.le_fast_chrg_enable=1
 on property:persist.sys.le_fast_chrg_enable=0
     write /sys/class/power_supply/le_ab/le_quick_charge_mode 1
 
+on property:sys.listeners.registered=*
+    setprop vendor.sys.keymaster.loaded ${sys.listeners.registered}
+
 # add poweroffhandler
 service poweroffhandler /vendor/bin/poweroffhandler
     class core
