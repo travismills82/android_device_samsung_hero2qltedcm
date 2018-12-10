@@ -28,15 +28,30 @@ DEVICE_PACKAGE_OVERLAYS += \
     $(LOCAL_PATH)/overlay-lineage
 
 # Ramdisk
-PRODUCT_COPY_FILES += \
-    $(call find-copy-subdir-files,*,${LOCAL_PATH}/prebuilt/vendor,$(TARGET_COPY_OUT_VENDOR))
-
 PRODUCT_PACKAGES += \
-    init.recovery.qcom.rc
+    fstab.qcom \
+    init.carrier.rc \
+    init.class_main.sh \
+    init.qcom.early_boot.sh \
+    init.qcom.factory.rc \
+    init.qcom.post_boot.sh \
+    init.qcom.power.rc \
+    init.qcom.rc \
+    init.qcom.sensors.sh \
+    init.qcom.sh \
+    init.qcom.usb.rc \
+    init.qcom.usb.sh \
+    init.qti.ims.sh \
+    init.recovery.qcom.rc \
+    init.rilchip.rc \
+    init.target.rc \
+    init.wifi.rc \
+    ueventd.qcom.rc
 
+# TWRP Support - Optional
 ifeq ($(WITH_TWRP),true)
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/rootdir/recovery/twrp.fstab:recovery/root/etc/recovery.fstab
+    $(call find-copy-subdir-files,*,${LOCAL_PATH}/twrp/recovery,recovery)
 endif
 
 PRODUCT_ENFORCE_RRO_TARGETS := \
