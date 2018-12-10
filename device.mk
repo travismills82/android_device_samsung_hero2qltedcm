@@ -22,6 +22,9 @@ $(call inherit-product-if-exists, vendor/samsung/hero2qltedcm/hero2qltedcm-vendo
 # inherit hidl hals
 $(call inherit-product, device/samsung/hero2qltedcm/hidl.mk)
 
+# call default.prop
+$(call inherit-product, device/samsung/hero2qltedcm/default_prop.mk)
+
 # Overlays
 DEVICE_PACKAGE_OVERLAYS += \
     $(LOCAL_PATH)/overlay \
