@@ -25,6 +25,7 @@ allow system_server perfd:unix_stream_socket connectto;
 allow system_server perfd_data_file:dir search;
 
 set_prop(system_server, diag_prop);
+get_prop(system_server, vendor_camera_prop);
 
 # /vendor/usr/keylayout
 r_dir_file(system_server, idc_file);
