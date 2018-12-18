@@ -37,7 +37,7 @@ TARGET_2ND_CPU_ABI2 := armeabi
 TARGET_2ND_CPU_VARIANT := kryo
 
 # Assertions
-TARGET_OTA_ASSERT_DEVICE := hero2qltedcm,SC-02H,SC02H
+TARGET_OTA_ASSERT_DEVICE := hero2qltedcm,SC-02H,SC02H,hero2qltechn.hero2qlte
 
 # Binder API version
 TARGET_USES_64_BIT_BINDER := true
@@ -50,15 +50,16 @@ TARGET_BOOTLOADER_BOARD_NAME := msm8996
 TARGET_NO_BOOTLOADER := true
 
 # Kernel
-BOARD_KERNEL_CMDLINE := console=null androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x37 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 cma=24M@0-0xffffffff rcupdate.rcu_expedited=1
+BOARD_KERNEL_CMDLINE := console=null androidboot.hardware=qcom msm_rtb.filter=0x237 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 androidboot.selinux=permissive rcupdate.rcu_expedited=1 cma=32M@0-0xffffffff
 BOARD_KERNEL_BASE := 0x80000000
 BOARD_KERNEL_PAGESIZE := 4096
 BOARD_KERNEL_TAGS_OFFSET := 0x02000000
 BOARD_RAMDISK_OFFSET     := 0x02200000
-BOARD_KERNEL_IMAGE_NAME := Image.gz-dtb
+BOARD_KERNEL_IMAGE_NAME := Image.gz
+BOARD_KERNEL_SEPARATED_DT := true
 TARGET_KERNEL_ARCH := arm64
 TARGET_KERNEL_SOURCE := kernel/samsung/msm8996
-TARGET_KERNEL_CONFIG := lineageos_hero2qlte_jpn_dcm_defconfig
+TARGET_KERNEL_CONFIG := hero2qlte_chnzh_defconfig
 TARGET_KERNEL_CROSS_COMPILE_PREFIX := aarch64-linux-android-
 TARGET_COMPILE_WITH_MSM_KERNEL := true
 BOARD_CUSTOM_BOOTIMG := true
@@ -217,7 +218,7 @@ BOARD_RECOVERYIMAGE_PARTITION_SIZE := 79691776
 BOARD_SYSTEMIMAGE_PARTITION_SIZE := 5138022400
 BOARD_USERDATAIMAGE_PARTITION_SIZE := 26131365888
 BOARD_FLASH_BLOCK_SIZE := 262144
-BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := f2fs
+BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := ext4
 TARGET_USES_MKE2FS := true
 
 # Peripheral Manager
